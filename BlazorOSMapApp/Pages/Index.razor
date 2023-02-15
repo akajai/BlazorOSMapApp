@@ -1,1 +1,49 @@
-﻿@page "/"
+﻿@using Syncfusion.Blazor.Maps
+
+@page "/"
+<SfMaps>
+    <MapsZoomSettings Enable="true"></MapsZoomSettings>
+    <MapsLayers>
+        <MapsLayer UrlTemplate="https://tile.openstreetmap.org/level/tileX/tileY.png" TValue="string">
+            <MapsMarkerSettings>
+                <MapsMarker Visible="true" Shape="MarkerType.Circle" Fill="Green" Width="10" Height="5" DataSource="LargestCities" TValue="City"  OffsetX="20" >
+                    <MarkerTemplate >
+                        @{
+                            var data = context as City;
+                            <div>@data.Area </div>
+                        }
+                        
+                    </MarkerTemplate>
+                </MapsMarker>
+                <MapsMarker Visible="true" Shape="MarkerType.Circle" Fill="white" Width="10" Height="5" DataSource="LargestCities" TValue="City"  >
+                    <MapsMarkerBorder Width="3" Color="#333"></MapsMarkerBorder>
+                    <MapsMarkerTooltipSettings Visible="true" ValuePath="Name"></MapsMarkerTooltipSettings>
+                </MapsMarker>
+            </MapsMarkerSettings>
+            @*<MapsMarkerClusterSettings AllowClustering="false" Shape="MarkerType.Circle" Fill="#008CFF" Height="25" Width="25">
+            <MapsLayerMarkerClusterLabelStyle Color="white"></MapsLayerMarkerClusterLabelStyle>
+            </MapsMarkerClusterSettings>*@
+            <MapsShapeSettings Fill="lightgray">
+            </MapsShapeSettings>
+        </MapsLayer>
+    </MapsLayers>
+</SfMaps>
+
+@code {
+    public class City
+    {
+        public double Latitude { get; set; }
+        public double Longitude { get; set; }
+        public string Name { get; set; }
+        public string Area { get; set; }
+    };
+    private List<City> LargestCities = new List<City> {
+        new City { Latitude=40.6971494, Longitude= -74.2598747, Name="New York", Area="$8683.00" },
+        new City { Latitude=40.0024137, Longitude= -75.2581194, Name="Philadelphia", Area="$4661.00" },
+        new City { Latitude=42.3142647, Longitude= -71.11037, Name="Boston", Area="$4497.00" },
+        new City { Latitude=42.3526257, Longitude= -83.239291, Name="Detroit", Area="$3267.00" },
+        new City { Latitude=47.2510905, Longitude= -123.1255834, Name="Washington", Area="$2996.00" },
+        new City { Latitude=25.7823907, Longitude= -80.2994995, Name="Miami", Area="$2891.00" },
+        new City { Latitude=19.3892246, Longitude= -70.1305136, Name="San Juan", Area="$133.00" }
+    };
+}
