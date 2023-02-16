@@ -9,8 +9,8 @@
                 <MapsMarker Visible="true" Shape="MarkerType.Circle" Fill="Green" Width="10" Height="5" DataSource="LargestCities" TValue="City"  OffsetX="20" >
                     <MarkerTemplate >
                         @{
-                            var data = context as City;
-                            <div>@data.Area </div>
+                            City? data = context as City;
+                            <div>@data?.Area </div>
                         }
                         
                     </MarkerTemplate>
